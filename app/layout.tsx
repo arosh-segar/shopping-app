@@ -1,8 +1,17 @@
+import { ColorSchemeScript, createTheme, MantineProvider } from "@mantine/core";
 import type { Metadata } from "next";
-import { Inter } from "next/font/google";
 import "./globals.css";
+import { poppins } from "./ui/fonts";
 
-const inter = Inter({ subsets: ["latin"] });
+const theme = createTheme({
+  breakpoints: {
+    xs: "30em",
+    sm: "48em",
+    md: "64em",
+    lg: "74em",
+    xl: "90em",
+  },
+});
 
 export const metadata: Metadata = {
   title: "Create Next App",
@@ -16,7 +25,17 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={inter.className}>{children}</body>
+      <head>
+        <meta charSet="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>My awesome app</title>
+
+        <ColorSchemeScript />
+      </head>
+
+      <body className={`${poppins.className}`}>
+        <MantineProvider theme={theme}>{children}</MantineProvider>
+      </body>
     </html>
   );
 }
