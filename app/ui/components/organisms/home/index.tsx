@@ -1,7 +1,14 @@
 "use client";
 import { ColumnFiltersState, SortingState } from "@/app/lib/definitions";
 import useCartStore from "@/app/lib/zustand-store";
-import { Button, ComboboxItem, Container, Grid, Input } from "@mantine/core";
+import {
+  Button,
+  ComboboxItem,
+  Container,
+  Grid,
+  Input,
+  Text,
+} from "@mantine/core";
 import { useDisclosure } from "@mantine/hooks";
 import {
   getCoreRowModel,
@@ -154,7 +161,7 @@ const HomeOrganism = () => {
     <div>
       <ShoppingCartOrganism opened={opened} close={close} />
 
-      <div className="py-5 w-full sticky top-0 z-50 bg-white">
+      <div className="py-5 w-full sticky top-0 z-50 bg-white shadow-md">
         <Container size="lg">
           <div className="flex justify-end">
             <Button
@@ -199,12 +206,19 @@ const HomeOrganism = () => {
         </Container>
       </div>
       <Container size="lg">
-        <Grid gutter="xl" mt={20}>
-          {table.getRowModel().flatRows.map((book) => (
-            <BookItemMolecule key={book?.original?.id} book={book?.original} />
-          ))}
-        </Grid>
-        <PaginationOrganism table={table} />
+        {table.getRowModel().flatRows.length > 0 ? (
+          <Grid gutter="xl" mt={20}>
+            {table.getRowModel().flatRows.map((book) => (
+              <BookItemMolecule
+                key={book?.original?.id}
+                book={book?.original}
+              />
+            ))}
+          </Grid>
+        ) : (
+          <Text>No books available</Text>
+        )}
+        {table.getPageCount() > 1 && <PaginationOrganism table={table} />}
       </Container>
     </div>
   );

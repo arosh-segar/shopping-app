@@ -1,16 +1,26 @@
 "use client";
 import useCartStore from "@/app/lib/zustand-store";
-import { Container, NumberFormatter, Text } from "@mantine/core";
+import { Button, Container, NumberFormatter, Text } from "@mantine/core";
+import { useRouter } from "next/navigation";
 import CartItemSectionMolecule from "../../molecutles/cart/CartItemSectionMolecule";
 import CheckoutFormOrganism from "./CheckoutFormOrganism";
 
 const CheckoutOrganism = () => {
   const { cartItems, totalCost } = useCartStore();
+  const { push } = useRouter();
   return (
-    <Container size="lg">
-      <Text fw={700} truncate="end" size="xl" my={40}>
+    <Container size="lg" my={10}>
+      <Text fw={700} truncate="end" size="xl">
         Checkout
       </Text>
+      <Button
+        onClick={() => {
+          push("/");
+        }}
+        my={20}
+      >
+        Go Back
+      </Button>
       <div className="w-full flex flex-col-reverse lg:flex-row items-start lg:space-x-4">
         <div className="w-full lg:w-7/12 lg:h-[75vh] p-5 bg-blue-100 rounded-md my-10 lg:my-0">
           <CheckoutFormOrganism />
